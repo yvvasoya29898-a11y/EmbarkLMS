@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embark LMS — Wireframes v1 (PRD v5)</title>
+<style>
+  :root{--ink:#1a1a1a;--mut:#7a7a72;--line:#c9c7bd;--soft:#f2f1ec;--card:#ffffff;--bg:#e9e8e2;--acc:#2f2f2c;--note:#8a6d1f;--noteBg:#faf3dd;--ok:#2e6b3f;--okBg:#e7f2e9;--warn:#8a5a12;--warnBg:#faeeda;--info:#1d4f7c;--infoBg:#e8f1fa;--live:#a33030;--liveBg:#fbeaea;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45;padding:32px 16px 80px;}
+  .wrap{max-width:960px;margin:0 auto;}
+  header.doc h1{font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+  header.doc p{color:var(--mut);margin-top:4px;max-width:640px;}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:20px 0 8px;}
+  .toc h2{font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--mut);margin-bottom:8px;}
+  .toc ol{columns:2;column-gap:32px;padding-left:18px;font-size:13px;}
+  .toc li{margin:3px 0;}
+  section.screen{margin-top:44px;}
+  .shead{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
+  .snum{font-size:12px;font-weight:700;background:var(--acc);color:#fff;border-radius:5px;padding:2px 8px;letter-spacing:0.05em;}
+  .shead h2{font-size:18px;font-weight:600;}
+  .shead .role{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--mut);}
+  .frame{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,0.04);}
+  .chrome{display:flex;align-items:center;gap:6px;background:var(--soft);border-bottom:1px solid var(--line);padding:8px 12px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#d4d2c8;}
+  .url{flex:1;background:#fff;border:1px solid var(--line);border-radius:5px;font-size:11px;color:var(--mut);padding:3px 10px;margin-left:8px;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--line);}
+  .logo{font-weight:700;font-size:14px;}
+  .nav .links{display:flex;gap:16px;font-size:13px;color:var(--mut);}
+  .body{padding:18px;}
+  .grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .col{display:flex;flex-direction:column;gap:10px;}
+  .ph{border:1.5px dashed var(--line);border-radius:8px;background:repeating-linear-gradient(45deg,#fbfaf7,#fbfaf7 8px,#f4f3ee 8px,#f4f3ee 16px);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:12px;}
+  .card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px 14px;}
+  .soft{background:var(--soft);}
+  .btn{display:inline-block;border:1px solid var(--ink);border-radius:6px;padding:7px 14px;font-size:13px;background:#fff;font-weight:500;}
+  .btn.primary{background:var(--acc);color:#fff;}
+  .btn.sm{padding:4px 10px;font-size:12px;}
+  .btn.disabled{border-color:var(--line);color:var(--mut);background:var(--soft);}
+  .badge{display:inline-block;font-size:11px;font-weight:600;border-radius:10px;padding:2px 9px;letter-spacing:0.02em;}
+  .b-hybrid{background:var(--infoBg);color:var(--info);}
+  .b-live{background:var(--liveBg);color:var(--live);}
+  .b-rec{background:var(--soft);color:var(--mut);border:1px solid var(--line);}
+  .b-new{background:var(--infoBg);color:var(--info);}
+  .b-contacted{background:var(--warnBg);color:var(--warn);}
+  .b-paid{background:var(--okBg);color:var(--ok);}
+  .b-dropped{background:var(--soft);color:var(--mut);}
+  .b-livenow{background:var(--liveBg);color:var(--live);}
+  .b-upcoming{background:var(--warnBg);color:var(--warn);}
+  .b-done{background:var(--okBg);color:var(--ok);}
+  .muted{color:var(--mut);}
+  .sm{font-size:12px;}
+  .xs{font-size:11px;}
+  .bold{font-weight:600;}
+  .hr{border-top:1px solid var(--line);margin:10px 0;}
+  .rowline{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--soft);}
+  .rowline:last-child{border-bottom:none;}
+  .bar{height:7px;border-radius:4px;background:var(--soft);overflow:hidden;}
+  .bar i{display:block;height:100%;background:var(--acc);}
+  .tbl{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--mut);border-bottom:1px solid var(--line);padding:6px 8px;font-weight:600;}
+  .tbl td{border-bottom:1px solid var(--soft);padding:8px;vertical-align:middle;}
+  .notes{background:var(--noteBg);border:1px solid #e5d9a8;border-radius:8px;padding:12px 16px;margin-top:10px;font-size:12.5px;color:#4c3f14;}
+  .notes b{color:var(--note);}
+  .notes ul{padding-left:18px;margin-top:4px;}
+  .notes li{margin:2px 0;}
+  .pill-tabs{display:flex;gap:8px;font-size:12px;margin-bottom:12px;flex-wrap:wrap;}
+  .pill-tabs span{border:1px solid var(--line);border-radius:14px;padding:3px 12px;color:var(--mut);}
+  .pill-tabs span.on{border-color:var(--ink);color:var(--ink);font-weight:600;}
+  .field{margin-bottom:10px;}
+  .field label{display:block;font-size:12px;color:var(--mut);margin-bottom:3px;}
+  .input{border:1px solid var(--line);border-radius:6px;background:#fff;padding:8px 10px;font-size:13px;color:var(--mut);}
+  .sidebar{border-right:1px solid var(--line);padding:14px;background:var(--soft);border-radius:8px 0 0 8px;}
+  .split{display:grid;grid-template-columns:190px 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;}
+  .sideitem{padding:7px 10px;border-radius:6px;font-size:13px;color:var(--mut);margin-bottom:2px;}
+  .sideitem.on{background:#fff;border:1px solid var(--line);color:var(--ink);font-weight:600;}
+  .flowmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px;}
+  .fnode{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 12px;font-size:12px;}
+  .fnode .t{font-weight:600;font-size:12.5px;}
+  .fnode .s{color:var(--mut);font-size:11px;margin-top:2px;}
+  @media (max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.split{grid-template-columns:1fr;}.toc ol{columns:1;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>Embark LMS — Wireframes</h1>
+  <p>Low-fidelity wireframes for PRD v5 (offline payments + live classes + recorded content). Two roles: Student and Admin. Yellow annotation boxes describe behavior, states, and rules for each screen — these become the build spec for Antigravity sessions.</p>
+</header>
+
+<div class="toc">
+  <h2>Screen index</h2>
+  <ol>
+    <li>S1 — Sign up / Login</li>
+    <li>S2 — Course catalog</li>
+    <li>S3 — Course landing page (hybrid)</li>
+    <li>S4 — Enrollment request confirmation</li>
+    <li>S5 — Student dashboard</li>
+    <li>S6 — Live classes (batch schedule)</li>
+    <li>S7 — Lesson player (recorded)</li>
+    <li>S8 — Quiz &amp; result</li>
+    <li>S9 — Certificate &amp; public verification</li>
+    <li>A1 — Admin overview</li>
+    <li>A2 — Lead inbox &amp; request detail</li>
+    <li>A3 — Course editor</li>
+    <li>A4 — Batch manager &amp; session scheduler</li>
+    <li>A5 — Attendance marking</li>
+    <li>A6 — Reports &amp; feedback</li>
+  </ol>
+</div>
+
+<div class="toc">
+  <h2>Primary user flow</h2>
+  <div class="flowmap">
+    <div class="fnode"><div class="t">S1 Sign up</div><div class="s">phone required</div></div>
+    <div class="fnode"><div class="t">S2→S3 Browse &amp; view course</div><div class="s">see live schedule</div></div>
+    <div class="fnode"><div class="t">S4 Request enrollment</div><div class="s">team calls in 24h</div></div>
+    <div class="fnode"><div class="t">A2 Admin grants access</div><div class="s">after offline payment</div></div>
+    <div class="fnode"><div class="t">S5–S8 Learn</div><div class="s">live + recorded + quiz</div></div>
+    <div class="fnode"><div class="t">S9 Certificate</div><div class="s">criteria met</div></div>
+  </div>
+</div>
+
+<!-- ============ S1 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S1</span><h2>Sign up / Login</h2><span class="role">Student · public</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/signup</span></div>
+    <div class="body" style="display:flex;justify-content:center;background:var(--soft);">
+      <div class="card" style="width:340px;">
+        <div class="bold" style="font-size:16px;margin-bottom:2px;">Create your account</div>
+        <div class="sm muted" style="margin-bottom:12px;">Learn AI, implementation-first</div>
+        <div class="btn" style="width:100%;text-align:center;margin-bottom:10px;">Continue with Google</div>
+        <div class="xs muted" style="text-align:center;margin-bottom:10px;">— or —</div>
+        <div class="field"><label>Full name</label><div class="input">Ravi Patel</div></div>
+        <div class="field"><label>Email</label><div class="input">ravi@example.com</div></div>
+        <div class="field"><label>Phone (required — our team calls to enroll you)</label><div class="input">+91 98250 xxxxx</div></div>
+        <div class="field"><label>Password</label><div class="input">••••••••</div></div>
+        <div class="btn primary" style="width:100%;text-align:center;">Create account</div>
+        <div class="xs muted" style="text-align:center;margin-top:8px;">Already have an account? <u>Log in</u></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Phone is mandatory (validated Indian format) — it powers the offline-payment call workflow.</li>
+      <li>Google OAuth users are prompted for phone on first login before proceeding.</li>
+      <li>Role defaults to <code>student</code>; admins are provisioned manually in DB.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S2</span><h2>Course catalog</h2><span class="role">Student · public</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/courses</span></div>
+    <div class="nav"><span class="logo">Embark LMS</span><span class="links"><span>Courses</span><span>My dashboard</span><span>Login</span></span></div>
+    <div class="body">
+      <div class="pill-tabs"><span class="on">All</span><span>AI fundamentals</span><span>Agentic AI</span><span>Automation</span><span>For educators</span></div>
+      <div class="grid3">
+        <div class="card">
+          <div class="ph" style="height:80px;margin-bottom:8px;">thumbnail</div>
+          <span class="badge b-hybrid">Hybrid</span>
+          <div class="bold" style="margin-top:6px;">AI for educators — 5-day program</div>
+          <div class="xs muted">Next batch: 10 Aug · Evening</div>
+          <div class="hr"></div>
+          <div class="rowline"><span class="bold">₹2,999</span><span class="btn sm">View course</span></div>
+        </div>
+        <div class="card">
+          <div class="ph" style="height:80px;margin-bottom:8px;">thumbnail</div>
+          <span class="badge b-live">Live</span>
+          <div class="bold" style="margin-top:6px;">Agentic AI weekend workshop</div>
+          <div class="xs muted">Next batch: 22 Aug · Sat–Sun</div>
+          <div class="hr"></div>
+          <div class="rowline"><span class="bold">₹1,999</span><span class="btn sm">View course</span></div>
+        </div>
+        <div class="card">
+          <div class="ph" style="height:80px;margin-bottom:8px;">thumbnail</div>
+          <span class="badge b-rec">Recorded</span>
+          <div class="bold" style="margin-top:6px;">Prompt engineering basics</div>
+          <div class="xs muted">Self-paced · 4 hours</div>
+          <div class="hr"></div>
+          <div class="rowline"><span class="bold">₹999</span><span class="btn sm">View course</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Delivery-type badge on every card: <b>Hybrid</b> / <b>Live</b> / <b>Recorded</b>.</li>
+      <li>Live/hybrid cards show the next batch start date pulled from the earliest open batch.</li>
+      <li>Category pill filters; only <code>status = published</code> courses appear.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S3</span><h2>Course landing page (hybrid)</h2><span class="role">Student · public</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/courses/ai-for-educators</span></div>
+    <div class="nav"><span class="logo">Embark LMS</span><span class="links"><span>Courses</span><span>My dashboard</span></span></div>
+    <div class="body grid2">
+      <div class="col">
+        <div class="ph" style="height:120px;">course thumbnail / intro video</div>
+        <div>
+          <span class="badge b-hybrid">Hybrid</span>
+          <div class="bold" style="font-size:17px;margin-top:4px;">AI for educators — 5-day program</div>
+          <div class="sm muted">Live evening classes + recorded revision material · Certificate on completion</div>
+        </div>
+        <div class="card">
+          <div class="bold sm" style="margin-bottom:6px;">Live schedule — Batch 3 (10–21 Aug, Mon–Fri 7 pm IST)</div>
+          <div class="rowline sm"><span>Session 1 · AI foundations</span><span class="muted">Mon 10 Aug · 7:00 pm</span></div>
+          <div class="rowline sm"><span>Session 2 · Prompt engineering</span><span class="muted">Tue 11 Aug · 7:00 pm</span></div>
+          <div class="rowline sm"><span>Session 3 · Agentic AI</span><span class="muted">Wed 12 Aug · 7:00 pm</span></div>
+          <div class="xs muted" style="margin-top:4px;">+ 7 more sessions · each 55 min</div>
+        </div>
+        <div class="card">
+          <div class="bold sm" style="margin-bottom:6px;">Recorded curriculum</div>
+          <div class="rowline sm"><span>▶ Module 1 · AI foundations</span><span class="badge b-paid">Free preview</span></div>
+          <div class="rowline sm muted"><span>🔒 Module 2 · Prompt engineering</span><span>4 lessons</span></div>
+          <div class="rowline sm muted"><span>🔒 Module 3 · Agentic AI</span><span>5 lessons</span></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="bold" style="font-size:20px;">₹2,999</div>
+          <div class="xs muted" style="margin-bottom:10px;">One-time · includes live batch + lifetime recorded access</div>
+          <div class="btn primary" style="width:100%;text-align:center;">Request enrollment</div>
+          <div class="xs muted" style="margin-top:8px;">📞 Our team will call you within 24 hours on your registered number to complete enrollment and payment (UPI / bank transfer).</div>
+          <div class="hr"></div>
+          <div class="xs muted col" style="gap:4px;">
+            <span>🗓 10 live sessions (55 min each)</span>
+            <span>▶ 6+ hours recorded content</span>
+            <span>🏅 Verified certificate (75% attendance + quizzes)</span>
+            <span>📁 Downloadable resources</span>
+          </div>
+        </div>
+        <div class="card soft xs muted">Have a cohort invite code (university batch)? <u>Join with code</u></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior &amp; states:</b>
+    <ul>
+      <li>Logged-out click on <b>Request enrollment</b> → redirect to S1 then return here.</li>
+      <li>If an open request exists → button becomes disabled "Request pending — we'll call you".</li>
+      <li>If already enrolled → button becomes "Go to course".</li>
+      <li>Live schedule shows the next open batch; meeting links are never exposed here.</li>
+      <li>Certificate criteria displayed transparently (from <code>completion_criteria_json</code>).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S4</span><h2>Enrollment request confirmation</h2><span class="role">Student</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/courses/ai-for-educators/requested</span></div>
+    <div class="body" style="display:flex;justify-content:center;background:var(--soft);">
+      <div class="card" style="width:400px;text-align:center;">
+        <div style="font-size:28px;">✅</div>
+        <div class="bold" style="font-size:16px;margin:6px 0 2px;">Request received</div>
+        <div class="sm muted">Our team will call you within 24 hours on <b>+91 98250 xxxxx</b> to complete your enrollment for <b>AI for educators — Batch 3</b>.</div>
+        <div class="hr"></div>
+        <div class="field" style="text-align:left;"><label>Preferred time to call (optional)</label><div class="input">Evenings after 6 pm</div></div>
+        <div class="btn sm" style="margin-top:4px;">Save note</div>
+        <div class="hr"></div>
+        <div class="xs muted">Payment options shared on call: UPI / bank transfer. Wrong number? <u>Update phone</u></div>
+        <div class="btn sm" style="margin-top:8px;">Back to dashboard</div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Creates <code>enrollment_requests</code> row with status <code>new</code>; one open request per student per course.</li>
+      <li>Student note saved to the request; visible to Admin in lead inbox (A2).</li>
+      <li>Request status also appears on dashboard (S5) as "Awaiting call".</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S5</span><h2>Student dashboard</h2><span class="role">Student</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/dashboard</span></div>
+    <div class="nav"><span class="logo">Embark LMS</span><span class="links"><span>Courses</span><span class="bold" style="color:var(--ink);">My dashboard</span><span>Ravi P.</span></span></div>
+    <div class="body col">
+      <div class="card" style="border-color:#d9a0a0;background:var(--liveBg);">
+        <div class="rowline" style="border:none;padding:0;">
+          <div>
+            <span class="badge b-livenow">Live in 32 min</span>
+            <div class="bold" style="margin-top:4px;">Session 3 · Agentic AI — AI for educators (Batch 3)</div>
+            <div class="xs muted">Today · 7:00–7:55 pm IST · Google Meet</div>
+          </div>
+          <div class="col" style="gap:6px;align-items:flex-end;">
+            <span class="btn primary sm">Join class</span>
+            <span class="xs muted"><u>Add to calendar</u></span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rowline" style="border:none;padding:0;">
+          <div style="flex:1;">
+            <div class="bold">AI for educators — 5-day program <span class="badge b-hybrid">Hybrid</span></div>
+            <div class="xs muted" style="margin:2px 0 6px;">Attendance 2/2 · Next lesson: 2.3 Writing effective prompts</div>
+            <div class="bar" style="max-width:300px;"><i style="width:42%;"></i></div>
+          </div>
+          <span class="btn sm">Continue →</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rowline" style="border:none;padding:0;">
+          <span class="sm">⏳ Agentic AI weekend workshop — enrollment requested</span>
+          <span class="badge b-contacted">Awaiting call</span>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card soft"><div class="xs muted">Live attendance</div><div class="bold" style="font-size:20px;">2 / 2</div></div>
+        <div class="card soft"><div class="xs muted">Lessons completed</div><div class="bold" style="font-size:20px;">8 / 19</div></div>
+        <div class="card soft"><div class="xs muted">Certificates</div><div class="bold" style="font-size:20px;">1 🏅</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior &amp; states:</b>
+    <ul>
+      <li><b>Next live class card</b> pinned on top; Join button enabled from T−15 min to session end, otherwise shows countdown ("Live in 32 min") or "Starts Mon 7 pm".</li>
+      <li>Join click opens Meet/Zoom in new tab AND logs <code>session_attendance.joined_click_at</code>.</li>
+      <li>Request cards show live status from lead pipeline: Awaiting call / Payment pending.</li>
+      <li>Empty state (no enrollments): "Browse courses" CTA.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S6</span><h2>Live classes — batch schedule</h2><span class="role">Student · enrolled only</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/learn/ai-for-educators/live</span></div>
+    <div class="nav"><span class="logo">Embark LMS</span><span class="links"><span>← AI for educators · Batch 3</span><span>Attendance: <b style="color:var(--ink);">2/2 (100%)</b></span></span></div>
+    <div class="body col">
+      <div class="pill-tabs"><span>Overview</span><span class="on">Live classes</span><span>Recorded lessons</span><span>Quizzes</span></div>
+      <div class="card" style="border-color:#d9a0a0;">
+        <div class="rowline" style="border:none;padding:0;">
+          <div>
+            <span class="badge b-livenow">Live now</span>
+            <div class="bold" style="margin-top:3px;">Session 3 · Agentic AI</div>
+            <div class="xs muted">Today · 7:00–7:55 pm · started 4 min ago</div>
+          </div>
+          <span class="btn primary sm">Join class ↗</span>
+        </div>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Session</th><th>Date &amp; time</th><th>Status</th><th>Action</th></tr>
+          <tr><td>1 · AI foundations</td><td>Mon 10 Aug · 7 pm</td><td><span class="badge b-done">Attended</span></td><td><span class="btn sm">Watch recording</span></td></tr>
+          <tr><td>2 · Prompt engineering</td><td>Tue 11 Aug · 7 pm</td><td><span class="badge b-done">Attended</span></td><td><span class="btn sm">Watch recording</span></td></tr>
+          <tr><td>3 · Agentic AI</td><td>Wed 12 Aug · 7 pm</td><td><span class="badge b-livenow">Live now</span></td><td><span class="btn primary sm">Join ↗</span></td></tr>
+          <tr><td>4 · n8n automation</td><td>Thu 13 Aug · 7 pm</td><td><span class="badge b-upcoming">Upcoming</span></td><td><span class="btn disabled sm">Join at 6:45 pm</span></td></tr>
+          <tr><td>5 · AI in assessment</td><td>Fri 14 Aug · 7 pm</td><td><span class="badge b-upcoming">Upcoming</span></td><td><span class="xs muted"><u>Add to calendar</u></span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior &amp; states:</b>
+    <ul>
+      <li>Session states auto-derived from time: Upcoming → Live now (start→end) → Completed.</li>
+      <li>Join enabled T−15 min; before that button is disabled with the unlock time; a missed session with no recording yet shows "Recording coming soon".</li>
+      <li>Meeting URL fetched server-side only for enrolled batch members at click time.</li>
+      <li>Attended badge = auto join-click OR admin-marked (A5); absent shows "Missed" in gray.</li>
+      <li>Recording button appears once Admin pastes the YouTube unlisted URL (A4).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S7</span><h2>Lesson player (recorded)</h2><span class="role">Student · enrolled only</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/learn/ai-for-educators/lesson/2-3</span></div>
+    <div class="nav"><span class="logo">← AI for educators</span><span class="links"><span>Progress: <b style="color:var(--ink);">42%</b></span></span></div>
+    <div class="body">
+      <div class="split" style="grid-template-columns:1.7fr 1fr;">
+        <div style="padding:14px;border-right:1px solid var(--line);">
+          <div class="ph" style="height:130px;">▶ YouTube unlisted embed</div>
+          <div class="bold" style="margin:10px 0 6px;">2.3 Writing effective prompts</div>
+          <div class="pill-tabs"><span class="on">Notes</span><span>Resources (2)</span></div>
+          <div class="col" style="gap:5px;">
+            <div class="ph" style="height:10px;width:95%;border-style:solid;background:var(--soft);"></div>
+            <div class="ph" style="height:10px;width:88%;border-style:solid;background:var(--soft);"></div>
+            <div class="ph" style="height:10px;width:62%;border-style:solid;background:var(--soft);"></div>
+          </div>
+          <div class="rowline" style="margin-top:12px;border:none;">
+            <span class="btn sm">← Previous</span>
+            <span class="btn primary sm">Mark complete →</span>
+          </div>
+        </div>
+        <div style="padding:12px;">
+          <div class="bold sm" style="margin-bottom:6px;">Course content</div>
+          <div class="sideitem">✅ 2.1 What is a prompt <span class="xs muted">6:12</span></div>
+          <div class="sideitem">✅ 2.2 Prompt structure <span class="xs muted">9:40</span></div>
+          <div class="sideitem on">▶ 2.3 Writing effective prompts <span class="xs muted">11:05</span></div>
+          <div class="sideitem">🎥 Recording · Session 2 (live) <span class="xs muted">55:00</span></div>
+          <div class="sideitem">📝 2.4 Practice quiz <span class="xs muted">10 Qs</span></div>
+          <div class="sideitem muted">🔒 Module 3 · Agentic AI <span class="xs">Drip</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Outline unifies recorded lessons + live-session recordings + quizzes in one sequence.</li>
+      <li>Mark complete writes <code>progress</code>; drip modules unlock when previous module is 100%.</li>
+      <li>All lesson data served only after server-side enrollment check (not just hidden UI).</li>
+      <li>Resources tab lists downloadable files from Supabase Storage.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S8</span><h2>Quiz &amp; result</h2><span class="role">Student · enrolled only</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/learn/ai-for-educators/quiz/2-4</span></div>
+    <div class="body grid2" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="rowline" style="border:none;padding:0 0 6px;"><span class="bold">2.4 Practice quiz</span><span class="xs muted">Q 3 of 10 · Attempt 1 of 2</span></div>
+        <div class="bar" style="margin-bottom:10px;"><i style="width:30%;"></i></div>
+        <div class="sm" style="margin-bottom:8px;">Which element most improves a prompt's reliability?</div>
+        <div class="col" style="gap:6px;">
+          <div class="card soft sm">◯ Longer greetings</div>
+          <div class="card sm" style="border-color:var(--ink);">◉ Clear role, task, and output format</div>
+          <div class="card soft sm">◯ Random keywords</div>
+          <div class="card soft sm">◯ All caps text</div>
+        </div>
+        <div class="rowline" style="margin-top:10px;border:none;"><span class="btn sm">← Back</span><span class="btn primary sm">Next →</span></div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="xs muted" style="text-align:left;margin-bottom:8px;">RESULT VIEW (after submit)</div>
+        <div style="font-size:26px;">🎉</div>
+        <div class="bold" style="font-size:18px;">86%</div>
+        <div class="badge b-paid">Passed · required 70%</div>
+        <div class="hr"></div>
+        <div class="sm" style="text-align:left;">
+          <div class="rowline"><span>Q1 — correct</span><span class="badge b-paid">✓</span></div>
+          <div class="rowline"><span>Q2 — incorrect <span class="xs muted">(explanation shown)</span></span><span class="badge b-dropped">✗</span></div>
+          <div class="rowline"><span>Q3 — correct</span><span class="badge b-paid">✓</span></div>
+        </div>
+        <div class="btn sm" style="margin-top:8px;">Continue to next lesson</div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>One question per screen; answers held client-side, scored server-side on submit.</li>
+      <li>Result shows per-question correctness + explanation text; attempts limited per quiz config.</li>
+      <li>Failed with attempts left → "Retry quiz"; no attempts left → best score stands.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">S9</span><h2>Certificate &amp; public verification</h2><span class="role">Student + public</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/verify/7f3a-…</span></div>
+    <div class="body grid2" style="grid-template-columns:1fr 1fr;">
+      <div class="card">
+        <div class="xs muted" style="margin-bottom:6px;">STUDENT VIEW — course complete</div>
+        <div class="ph" style="height:120px;">Certificate preview (Embark branded)</div>
+        <div class="sm" style="margin:8px 0 2px;"><b>Ravi Patel</b> · AI for educators — 5-day program</div>
+        <div class="xs muted">Criteria met: attendance 90% (≥75%) · all quizzes passed</div>
+        <div class="rowline" style="border:none;margin-top:8px;">
+          <span class="btn primary sm">Download PDF</span>
+          <span class="btn sm">Copy verification link</span>
+        </div>
+      </div>
+      <div class="card soft">
+        <div class="xs muted" style="margin-bottom:6px;">PUBLIC VERIFICATION PAGE</div>
+        <div style="font-size:22px;">✅</div>
+        <div class="bold">Valid certificate</div>
+        <div class="sm" style="margin-top:6px;">
+          <div class="rowline"><span class="muted">Name</span><span>Ravi Patel</span></div>
+          <div class="rowline"><span class="muted">Course</span><span>AI for educators</span></div>
+          <div class="rowline"><span class="muted">Issued</span><span>22 Aug 2026</span></div>
+          <div class="rowline"><span class="muted">Certificate ID</span><span>7f3a-19c2</span></div>
+        </div>
+        <div class="xs muted" style="margin-top:6px;">Invalid/unknown ID → "No certificate found for this ID".</div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Certificate auto-issues when <code>completion_criteria_json</code> evaluates true (checked on each progress/attendance update).</li>
+      <li>PDF generated via @react-pdf/renderer; verification code is UUID v4; public page exposes only name, course, date.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ A1 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A1</span><h2>Admin overview</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin</span></div>
+    <div class="body">
+      <div class="split">
+        <div class="sidebar">
+          <div class="sideitem on">Overview</div>
+          <div class="sideitem">Lead inbox <b>(3)</b></div>
+          <div class="sideitem">Courses</div>
+          <div class="sideitem">Batches &amp; sessions</div>
+          <div class="sideitem">Attendance</div>
+          <div class="sideitem">Users</div>
+          <div class="sideitem">Reports</div>
+          <div class="sideitem">Feedback</div>
+        </div>
+        <div style="padding:14px;" class="col">
+          <div class="grid4">
+            <div class="card soft"><div class="xs muted">New requests</div><div class="bold" style="font-size:18px;">3</div></div>
+            <div class="card soft"><div class="xs muted">Active students</div><div class="bold" style="font-size:18px;">87</div></div>
+            <div class="card soft"><div class="xs muted">Sessions this week</div><div class="bold" style="font-size:18px;">5</div></div>
+            <div class="card soft"><div class="xs muted">Avg attendance</div><div class="bold" style="font-size:18px;">78%</div></div>
+          </div>
+          <div class="card">
+            <div class="bold sm" style="margin-bottom:4px;">Today</div>
+            <div class="rowline sm"><span>🔴 Session 3 · Agentic AI (Batch 3) — 7:00 pm</span><span class="btn sm">Open session</span></div>
+            <div class="rowline sm"><span>📞 2 new enrollment requests to call</span><span class="btn sm">Open inbox</span></div>
+            <div class="rowline sm"><span>🎥 Session 2 recording pending upload</span><span class="btn sm">Add recording</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b> Overview is an action list, not just stats — pending calls, today's sessions, and missing recordings surface as tasks. Sidebar is the persistent admin navigation for A1–A6.</div>
+</section>
+
+<!-- ============ A2 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A2</span><h2>Lead inbox &amp; request detail</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin/requests</span></div>
+    <div class="body col">
+      <div class="rowline" style="border:none;padding:0;">
+        <div class="pill-tabs" style="margin:0;"><span class="on">All (14)</span><span>New (3)</span><span>Contacted (4)</span><span>Paid (2)</span><span>Dropped</span></div>
+        <span class="btn sm">⬇ Export CSV</span>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Student</th><th>Course · batch</th><th>Phone</th><th>Requested</th><th>Status</th><th>Action</th></tr>
+          <tr><td>Ravi Patel</td><td>AI for educators · B3</td><td>98250 xxxxx</td><td>2h ago</td><td><span class="badge b-new">New</span></td><td><span class="btn sm">📞 Mark contacted</span></td></tr>
+          <tr><td>Nisha Shah</td><td>Agentic AI workshop · B1</td><td>99740 xxxxx</td><td>1d ago</td><td><span class="badge b-contacted">Contacted</span></td><td><span class="btn sm">💰 Mark paid</span></td></tr>
+          <tr style="background:var(--soft);"><td>Amit Joshi ▾</td><td>AI for educators · B3</td><td>98980 xxxxx</td><td>2d ago</td><td><span class="badge b-paid">Paid</span></td><td><span class="btn primary sm">🔑 Grant access</span></td></tr>
+        </table>
+        <div class="card soft" style="margin:8px;">
+          <div class="xs muted" style="margin-bottom:6px;">EXPANDED ROW — Amit Joshi</div>
+          <div class="grid3">
+            <div class="field"><label>Student note</label><div class="input xs">Call after 6 pm please</div></div>
+            <div class="field"><label>Payment reference (UPI txn ID)</label><div class="input xs">UPI-4392018837</div></div>
+            <div class="field"><label>Assign to batch</label><div class="input xs">Batch 3 — Aug 2026 ▾</div></div>
+          </div>
+          <div class="field"><label>Admin notes (internal)</label><div class="input xs">Paid ₹2,999 full · confirmed on call 8 Jul</div></div>
+          <div class="rowline" style="border:none;">
+            <span class="xs muted">History: New → Contacted (7 Jul) → Paid (8 Jul)</span>
+            <span><span class="btn sm">Mark dropped</span> <span class="btn primary sm">Grant access ✓</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior &amp; rules:</b>
+    <ul>
+      <li>Pipeline: <b>New → Contacted → Paid → Enrolled</b> (or Dropped); each action button advances one step.</li>
+      <li><b>Grant access</b> requires batch selection (live/hybrid) and a payment reference; creates <code>enrollments</code> row and sends the student a confirmation email.</li>
+      <li>Only admins can create enrollments — enforced in RLS and server actions.</li>
+      <li>Status timestamps kept for the conversion report (A6); SLA highlight: New older than 24h turns red.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ A3 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A3</span><h2>Course editor</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin/courses/ai-for-educators</span></div>
+    <div class="body">
+      <div class="split" style="grid-template-columns:1fr 1.4fr;">
+        <div style="padding:14px;border-right:1px solid var(--line);" class="col">
+          <div class="bold sm">Course settings</div>
+          <div class="field"><label>Title</label><div class="input xs">AI for educators — 5-day program</div></div>
+          <div class="grid3" style="grid-template-columns:1fr 1fr;">
+            <div class="field"><label>Delivery type</label><div class="input xs">Hybrid ▾</div></div>
+            <div class="field"><label>Display price (₹)</label><div class="input xs">2999</div></div>
+          </div>
+          <div class="field"><label>Certificate criteria</label><div class="input xs">Attendance ≥ 75% AND all quizzes passed ▾</div></div>
+          <div class="field"><label>Status</label><div class="input xs">Published ▾</div></div>
+          <div class="rowline" style="border:none;"><span class="btn sm">Preview</span><span class="btn primary sm">Save</span></div>
+        </div>
+        <div style="padding:14px;" class="col">
+          <div class="rowline" style="border:none;padding:0;"><span class="bold sm">Curriculum</span><span class="btn sm">+ Add module</span></div>
+          <div class="card">
+            <div class="rowline sm"><span>⠿ Module 1 · AI foundations</span><span class="xs muted">3 lessons · ✎</span></div>
+            <div class="rowline sm" style="padding-left:16px;"><span>▶ 1.1 Intro video <span class="badge b-paid">Free preview</span></span><span class="xs muted">✎ ⌫</span></div>
+            <div class="rowline sm" style="padding-left:16px;"><span>📄 1.2 Notes: What is AI</span><span class="xs muted">✎ ⌫</span></div>
+            <div class="rowline sm" style="padding-left:16px;"><span class="muted">+ Add lesson (video / notes / quiz / recording)</span><span></span></div>
+          </div>
+          <div class="card">
+            <div class="rowline sm"><span>⠿ Module 2 · Prompt engineering <span class="badge b-contacted">Drip</span></span><span class="xs muted">4 lessons · ✎</span></div>
+          </div>
+          <div class="card soft xs muted" style="padding:8px 12px;">LESSON EDITOR (modal): title · type · YouTube URL · markdown notes · resource upload · free-preview toggle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Drag-handle (⠿) reordering of modules/lessons updates <code>sort_order</code>.</li>
+      <li>Lesson types: video, notes, quiz, recording (links to a live session's recording).</li>
+      <li>Draft courses invisible in catalog; Publish validates required fields (thumbnail, ≥1 module, price).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ A4 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A4</span><h2>Batch manager &amp; session scheduler</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin/batches/batch-3</span></div>
+    <div class="body col">
+      <div class="rowline" style="border:none;padding:0;">
+        <div><span class="bold">AI for educators · Batch 3 — Aug 2026</span> <span class="badge b-paid">Open</span><div class="xs muted">32 enrolled · invite code: CVM-B3-2026 · 10–21 Aug</div></div>
+        <span><span class="btn sm">Bulk enroll (CSV)</span> <span class="btn primary sm">+ Schedule session</span></span>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Session</th><th>Date &amp; time</th><th>Meeting link</th><th>Recording</th><th>Attendance</th><th></th></tr>
+          <tr><td>1 · AI foundations</td><td>Mon 10 Aug · 7 pm</td><td class="xs muted">meet.google.com/abc…</td><td><span class="badge b-done">Posted</span></td><td>29/32</td><td class="xs">✎</td></tr>
+          <tr><td>2 · Prompt engineering</td><td>Tue 11 Aug · 7 pm</td><td class="xs muted">meet.google.com/def…</td><td><span class="badge b-contacted">Pending</span></td><td>27/32</td><td class="xs">✎</td></tr>
+          <tr><td>3 · Agentic AI</td><td>Wed 12 Aug · 7 pm</td><td class="xs muted">meet.google.com/ghi…</td><td class="xs muted">—</td><td><span class="badge b-livenow">Live</span></td><td class="xs">✎</td></tr>
+        </table>
+      </div>
+      <div class="card soft">
+        <div class="xs muted" style="margin-bottom:6px;">SCHEDULE SESSION (modal)</div>
+        <div class="grid3">
+          <div class="field"><label>Title</label><div class="input xs">Session 4 · n8n automation</div></div>
+          <div class="field"><label>Date &amp; time (IST)</label><div class="input xs">13 Aug 2026 · 7:00 pm</div></div>
+          <div class="field"><label>Duration (min)</label><div class="input xs">55</div></div>
+        </div>
+        <div class="field"><label>Meeting link (Google Meet / Zoom)</label><div class="input xs">https://meet.google.com/xyz-abcd-pqr</div></div>
+        <div class="field"><label>Recording URL (paste after class — YouTube unlisted)</label><div class="input xs">—</div></div>
+        <div class="rowline" style="border:none;"><span class="xs muted">Reminder emails auto-send 24h + 1h before</span><span class="btn primary sm">Save session</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior &amp; rules:</b>
+    <ul>
+      <li>Batches belong to a course; each has invite code, date range, status (Open/Running/Completed).</li>
+      <li>Meeting link stored per session; served only to that batch's enrolled students at join time.</li>
+      <li>Posting a recording URL flips student view to "Watch recording" and can auto-insert a recording lesson into the curriculum.</li>
+      <li>Duration guidance: ≤55 min (Google Meet free limit is 60).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ A5 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A5</span><h2>Attendance marking</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin/attendance/session-2</span></div>
+    <div class="body col">
+      <div class="rowline" style="border:none;padding:0;">
+        <div><span class="bold">Session 2 · Prompt engineering — Batch 3</span><div class="xs muted">Tue 11 Aug · 27 auto-logged of 32 enrolled</div></div>
+        <span><span class="btn sm">Mark all present</span> <span class="btn primary sm">Finalize attendance</span></span>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Student</th><th>Join click</th><th>Source</th><th>Attendance</th></tr>
+          <tr><td>Ravi Patel</td><td>7:01 pm</td><td class="xs muted">Auto</td><td><span class="badge b-paid">Present ✓</span></td></tr>
+          <tr><td>Nisha Shah</td><td>7:04 pm</td><td class="xs muted">Auto</td><td><span class="badge b-paid">Present ✓</span></td></tr>
+          <tr><td>Amit Joshi</td><td class="muted">—</td><td class="xs muted">Manual</td><td><span class="btn sm">◯ Absent → mark present</span></td></tr>
+          <tr><td>Kiran Mehta</td><td class="muted">—</td><td class="xs muted">—</td><td><span class="badge b-dropped">Absent</span></td></tr>
+        </table>
+      </div>
+      <div class="xs muted">Finalized attendance feeds student attendance %, certificate criteria, and institutional reports.</div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Join-clicks pre-populate the sheet (source: Auto); Admin can toggle any row (source becomes Admin).</li>
+      <li>Finalize locks the sheet (still editable with a warning) and recalculates each student's attendance %.</li>
+      <li>Joined a class through a shared link without clicking Join? Admin correction covers it — v2 adds Meet/Zoom API auto-capture.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ A6 ============ -->
+<section class="screen">
+  <div class="shead"><span class="snum">A6</span><h2>Reports &amp; feedback</h2><span class="role">Admin</span></div>
+  <div class="frame">
+    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">embarkai.in/admin/reports</span></div>
+    <div class="body col">
+      <div class="pill-tabs"><span class="on">Batch report</span><span>Lead conversion</span><span>Feedback</span></div>
+      <div class="rowline" style="border:none;padding:0;">
+        <span class="sm">Batch: <b>AI for educators · Batch 3</b> ▾</span>
+        <span class="btn sm">⬇ Export attendance sheet (CSV)</span>
+      </div>
+      <div class="grid4">
+        <div class="card soft"><div class="xs muted">Enrolled</div><div class="bold" style="font-size:18px;">32</div></div>
+        <div class="card soft"><div class="xs muted">Avg attendance</div><div class="bold" style="font-size:18px;">84%</div></div>
+        <div class="card soft"><div class="xs muted">Avg quiz score</div><div class="bold" style="font-size:18px;">81%</div></div>
+        <div class="card soft"><div class="xs muted">Certificates issued</div><div class="bold" style="font-size:18px;">—</div></div>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <tr><th>Student</th><th>Attendance</th><th>Lessons</th><th>Quiz avg</th><th>On track</th></tr>
+          <tr><td>Ravi Patel</td><td>100% (2/2)</td><td>8/19</td><td>86%</td><td><span class="badge b-paid">Yes</span></td></tr>
+          <tr><td>Kiran Mehta</td><td>50% (1/2)</td><td>3/19</td><td>—</td><td><span class="badge b-contacted">At risk</span></td></tr>
+        </table>
+      </div>
+      <div class="card soft xs muted">FEEDBACK TAB: per-session and per-course ratings (1–5) + comments, averages, CSV export — same format as Embark FDP feedback reports. LEAD CONVERSION TAB: New → Contacted → Paid → Enrolled funnel with drop-off counts and median time-to-call.</div>
+    </div>
+  </div>
+  <div class="notes"><b>Behavior:</b>
+    <ul>
+      <li>Batch report is the institutional deliverable (CVM-style): attendance sheet + progress, CSV export.</li>
+      <li>"At risk" flag: attendance below certificate threshold or no activity in 7 days.</li>
+    </ul>
+  </div>
+</section>
+
+<footer style="margin-top:48px;text-align:center;color:var(--mut);font-size:12px;">
+  Embark LMS wireframes · PRD v5 · 15 screens · Keep alongside /docs/PRD.md as the build spec for Antigravity
+</footer>
+
+</div>
+</body>
+</html>
