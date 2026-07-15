@@ -140,18 +140,33 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
 export const revalidate = 600 // Cache landing page for 10 minutes
 
 export async function generateStaticParams() {
-  const supabase = createSimpleClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-  const { data: courses } = await supabase
-    .from('courses')
-    .select('slug')
-    .eq('status', 'published')
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  return (courses || []).map((course) => ({
-    slug: course.slug,
-  }))
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Supabase environment variables are missing during build. Skipping static page generation for courses.')
+    return []
+  }
+
+  try {
+    const supabase = createSimpleClient(supabaseUrl, supabaseAnonKey)
+    const { data: courses, error } = await supabase
+      .from('courses')
+      .select('slug')
+      .eq('status', 'published')
+
+    if (error) {
+      console.error('Failed to fetch courses for generateStaticParams:', error)
+      return []
+    }
+
+    return (courses || []).map((course) => ({
+      slug: course.slug,
+    }))
+  } catch (err) {
+    console.error('Error during generateStaticParams:', err)
+    return []
+  }
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
