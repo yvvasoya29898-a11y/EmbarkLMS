@@ -83,7 +83,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       .from('batches')
       .select('course_id, starts_at')
       .in('course_id', cohortCourseIds)
-      .eq('status', 'open')
+      .in('status', ['open', 'running'])
       .order('starts_at', { ascending: true })
 
     allOpenBatches?.forEach((b) => {

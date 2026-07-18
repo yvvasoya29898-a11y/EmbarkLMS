@@ -218,7 +218,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
     .from('batches')
     .select('id, name, starts_at, ends_at, status')
     .eq('course_id', course.id)
-    .eq('status', 'open')
+    .in('status', ['open', 'running'])
     .order('starts_at', { ascending: true })
     .limit(1)
 

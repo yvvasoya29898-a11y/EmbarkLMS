@@ -99,7 +99,7 @@ export default async function AdminCourseDetailPage({ params }: CourseDetailPage
 
   const { data: batches } = await supabase
     .from('batches')
-    .select('id, course_id, name, starts_at, duration_min, is_active, created_at, ends_at, invite_code, status')
+    .select('id, course_id, name, starts_at, ends_at, invite_code, status')
     .eq('course_id', id)
     .order('starts_at', { ascending: false })
 
