@@ -1,6 +1,7 @@
 "use server"
 
 import { createClient } from '@/lib/supabase/server'
+import { createServiceRoleClient } from '@/lib/supabase/service'
 import { redirect } from 'next/navigation'
 
 export async function signUpAction(prevState: { error?: string } | null, formData: FormData) {
@@ -117,14 +118,44 @@ export async function completeProfileAction(prevState: { error?: string } | null
       return { error: 'User session not found. Please log in again.' }
     }
 
-    // Update the existing profile row's phone number
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .update({ phone: phoneClean })
-      .eq('id', user.id)
+    const serviceClient = createServiceRoleClient()
 
-    if (profileError) {
-      return { error: profileError.message }
+    // Check if profile exists
+    const { data: existingProfile, error: fetchError } = await serviceClient
+      .from('profiles')
+      .select('id')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (fetchError) {
+      return { error: fetchError.message }
+    }
+
+    if (existingProfile) {
+      // Update the existing profile row's phone number
+      const { error: profileError } = await serviceClient
+        .from('profiles')
+        .update({ phone: phoneClean })
+        .eq('id', user.id)
+
+      if (profileError) {
+        return { error: profileError.message }
+      }
+    } else {
+      // Insert new profile row
+      const fullName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student'
+      const { error: profileError } = await serviceClient
+        .from('profiles')
+        .insert({
+          id: user.id,
+          phone: phoneClean,
+          full_name: fullName,
+          role: 'student'
+        })
+
+      if (profileError) {
+        return { error: profileError.message }
+      }
     }
 
     redirect('/dashboard')

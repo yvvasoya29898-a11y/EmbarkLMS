@@ -1,11 +1,12 @@
 "use client"
 
 import React, { useState } from 'react'
-import { updateUserRole } from '@/lib/actions/users'
+import { updateUserRole, deleteUserAction } from '@/lib/actions/users'
 import { bulkEnrollStudentsAction } from '@/lib/actions/enrollment'
 import { formatISTDate } from '@/lib/date'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ToastProvider'
+import { Trash2 } from 'lucide-react'
 
 export interface UserEnrollment {
   id: string
@@ -41,6 +42,7 @@ export default function UsersManagementClient({
   const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'student'>('all')
   const [actionError, setActionError] = useState('')
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null)
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null)
   const [importing, setImporting] = useState(false)
   const [importResults, setImportResults] = useState<{ success: boolean; message: string } | null>(null)
 
@@ -74,6 +76,39 @@ export default function UsersManagementClient({
       setUsers(
         users.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
       )
+      router.refresh()
+    }
+  }
+ 
+  // Handle user deletion
+  const handleDeleteUser = async (userId: string, name: string) => {
+    setActionError('')
+    
+    if (userId === currentAdminId) {
+      setActionError('Self-deletion prevention: You cannot delete your own account.')
+      return
+    }
+
+    const confirmMsg = `Are you absolutely sure you want to delete user "${name}"? This will delete their authentication credentials, progress, and all active enrollments. This action cannot be undone.`
+    const isConfirmed = await confirm({
+      title: 'Delete User',
+      message: confirmMsg,
+      confirmText: 'Delete',
+      isDestructive: true
+    })
+    if (!isConfirmed) {
+      return
+    }
+
+    setDeletingUserId(userId)
+    const res = await deleteUserAction(userId)
+    setDeletingUserId(null)
+
+    if (res.error) {
+      setActionError(res.error)
+    } else {
+      // Update local state by removing the user
+      setUsers(users.filter((u) => u.id !== userId))
       router.refresh()
     }
   }
@@ -341,6 +376,7 @@ export default function UsersManagementClient({
                 <th className="py-3.5 px-5 font-semibold">Active Enrollments</th>
                 <th className="py-3.5 px-5 font-semibold">Role</th>
                 <th className="py-3.5 px-5 font-semibold">Joined on</th>
+                <th className="py-3.5 px-5 font-semibold text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -405,12 +441,24 @@ export default function UsersManagementClient({
                       <td className="py-4 px-5 text-slate-500 font-medium">
                         {formatISTDate(u.created_at, { day: 'numeric', month: 'short', year: 'numeric' })}
                       </td>
+                      <td className="py-4 px-5 text-right">
+                        {!isCurrentAdmin && (
+                          <button
+                            onClick={() => handleDeleteUser(u.id, u.full_name || u.email)}
+                            disabled={deletingUserId === u.id || isRoleUpdating}
+                            className="text-rose-600 hover:text-rose-800 hover:bg-rose-50 p-1.5 rounded-lg border border-transparent hover:border-rose-100 transition-colors disabled:opacity-50 inline-flex items-center justify-center cursor-pointer"
+                            title="Delete user"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
+                      </td>
                     </tr>
                   )
                 })
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400 italic">
+                  <td colSpan={7} className="py-12 text-center text-slate-400 italic">
                     {initialUsers.length === 0 ? 'No registered users found.' : 'No users match the search filters.'}
                   </td>
                 </tr>

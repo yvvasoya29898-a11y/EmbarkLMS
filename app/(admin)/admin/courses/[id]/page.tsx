@@ -30,7 +30,7 @@ export default async function AdminCourseDetailPage({ params }: CourseDetailPage
 
   const { data: course, error: courseError } = await supabase
     .from('courses')
-    .select('id, title, description, slug, delivery_type, status, price_inr_display, original_price_inr, completion_criteria, is_popular, sort_order, thumbnail_url, categories, category_sort_orders, created_at')
+    .select('id, title, description, slug, delivery_type, status, price_inr_display, original_price_inr, completion_criteria, is_popular, sort_order, thumbnail_url, categories, category_sort_orders, created_at, highlights, instructors, faqs')
     .eq('id', id)
     .single()
 

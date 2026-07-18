@@ -1,12 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { signOutAction } from '@/lib/actions/auth'
 import { getBulkCourseProgress } from '@/lib/progress'
 import NextClassCard from './NextClassCard'
-import DownloadAppButton from '@/components/DownloadAppButton'
+import Header from '@/components/Header'
 import InviteCodeForm from '@/components/InviteCodeForm'
 
 export default async function DashboardPage() {
@@ -151,53 +149,9 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-8 font-body">
-      <div className="max-w-4xl mx-auto space-y-8">
-        
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-100 pb-6 gap-4">
-          <div className="flex items-center gap-4 justify-between sm:justify-start">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="block shrink-0">
-                <Image src="/Logo.svg" alt="Embark AI" width={112} height={28} priority className="h-7 sm:h-8 w-auto" />
-              </Link>
-              <div className="h-6 w-px bg-slate-200" />
-            </div>
-            <div className="text-right sm:text-left">
-              <h1 className="text-base sm:text-xl font-bold tracking-tight text-slate-900 font-display">
-                Dashboard
-              </h1>
-              <p className="text-slate-500 text-[10px] sm:text-xs mt-0.5">Welcome back, {profile?.full_name?.split(' ')[0] || 'Student'}</p>
-            </div>
-          </div>
-          <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-5 w-full sm:w-auto">
-            <div className="hidden md:block">
-              <DownloadAppButton />
-            </div>
-            <div className="flex items-center gap-3 sm:gap-5">
-              <Link
-                href="/courses"
-                className="text-[10px] sm:text-xs font-bold text-slate-600 hover:text-primary uppercase tracking-wider font-mono transition-colors"
-              >
-                Courses
-              </Link>
-              <Link
-                href="/community"
-                className="text-[10px] sm:text-xs font-bold text-slate-600 hover:text-primary uppercase tracking-wider font-mono transition-colors"
-              >
-                Community
-              </Link>
-            </div>
-            <form action={signOutAction} className="shrink-0">
-              <button
-                type="submit"
-                className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold py-1.5 px-3 sm:py-2 sm:px-4 rounded-xl text-[10px] sm:text-xs transition-all duration-150 cursor-pointer"
-              >
-                Sign out
-              </button>
-            </form>
-          </div>
-        </div>
+    <div className="min-h-screen bg-background text-foreground font-body">
+      <Header user={user} isDashboard={true} profileName={profile?.full_name} />
+      <main className="max-w-4xl mx-auto p-6 sm:p-8 space-y-8">
 
         {/* Pinned next live session card (S5) */}
         {nextSession && (
@@ -417,7 +371,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-      </div>
+      </main>
     </div>
   )
 }

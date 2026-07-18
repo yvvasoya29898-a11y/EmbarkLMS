@@ -1,13 +1,12 @@
 import React from 'react'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createSimpleClient } from '@supabase/supabase-js'
 import { formatISTDate } from '@/lib/date'
 import EnrollmentCTA from './EnrollmentCTA'
-import DownloadAppButton from '@/components/DownloadAppButton'
+import Header from '@/components/Header'
 import InviteCodeForm from '@/components/InviteCodeForm'
 import CurriculumAccordion from './CurriculumAccordion'
 import FaqAccordion from './FaqAccordion'
@@ -335,44 +334,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
-      <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-6 py-3 sm:py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Image src="/Logo.svg" alt="Embark AI" width={112} height={28} priority className="h-7 sm:h-8 w-auto" />
-          </Link>
-          <div className="flex items-center gap-3 sm:gap-6">
-            <div className="hidden md:block">
-              <DownloadAppButton />
-            </div>
-            <Link href="/courses" className="text-[10px] sm:text-xs font-bold text-slate-655 hover:text-primary transition-colors uppercase tracking-wider font-mono">
-              Courses
-            </Link>
-            <Link href="/community" className="text-[10px] sm:text-xs font-bold text-slate-655 hover:text-primary transition-colors uppercase tracking-wider font-mono">
-              Community
-            </Link>
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs cursor-pointer shrink-0"
-              >
-                My Dashboard
-              </Link>
-            ) : (
-              <>
-                <Link href="/auth/login" className="text-[10px] sm:text-xs font-bold text-slate-655 hover:text-primary transition-colors uppercase tracking-wider font-mono">
-                  Log in
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs cursor-pointer shrink-0"
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header user={user} />
 
       {/* Immersive Split-Hero Header */}
       <div className="bg-slate-950 text-white relative py-16 px-6 overflow-hidden border-b border-slate-900">

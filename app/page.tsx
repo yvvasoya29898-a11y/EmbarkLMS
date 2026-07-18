@@ -3,11 +3,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 
 export const revalidate = 3600 // Cache homepage catalog for 1 hour
 import { formatISTDate } from '@/lib/date'
 import CountdownTimer from '@/components/CountdownTimer'
-import DownloadAppButton from '@/components/DownloadAppButton'
 import { COURSE_CATEGORIES } from '@/lib/constants'
 
 interface HomePageProps {
@@ -122,44 +122,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)] opacity-30 pointer-events-none" />
 
       {/* Header */}
-      <header className="border-b border-slate-100 bg-white/70 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-6 py-3 sm:py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0">
-            <Image src="/Logo.svg" alt="Embark AI" width={112} height={28} priority className="h-7 sm:h-8 w-auto" />
-          </Link>
-          <div className="flex items-center gap-3 sm:gap-6">
-            <div className="hidden md:block">
-              <DownloadAppButton />
-            </div>
-            <Link href="/courses" className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider font-mono">
-              Courses
-            </Link>
-            <Link href="/community" className="text-[10px] sm:text-xs font-bold text-slate-655 hover:text-primary transition-colors uppercase tracking-wider font-mono">
-              Community
-            </Link>
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs hover:scale-[1.02] cursor-pointer shrink-0"
-              >
-                My Dashboard
-              </Link>
-            ) : (
-              <>
-                <Link href="/auth/login" className="text-[10px] sm:text-xs font-bold text-slate-655 hover:text-primary transition-colors uppercase tracking-wider font-mono">
-                  Log in
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs hover:scale-[1.02] cursor-pointer shrink-0"
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header user={user} />
 
       {/* Main Container */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-12 md:py-16 relative z-10 space-y-12">

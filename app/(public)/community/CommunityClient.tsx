@@ -24,7 +24,7 @@ import {
 } from 'lucide-react'
 import { createPostAction, deletePostAction, toggleLikeAction, addCommentAction, deleteCommentAction } from '@/lib/actions/posts'
 import { formatISTDateTime } from '@/lib/date'
-import DownloadAppButton from '@/components/DownloadAppButton'
+import Header from '@/components/Header'
 import { useToast } from '@/components/ToastProvider'
 import Footer from '@/components/Footer'
 
@@ -262,53 +262,7 @@ export default function CommunityClient({
       <div className="absolute bottom-[-10%] right-[-5%] w-[450px] h-[450px] bg-primary-light/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Header */}
-      <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-6 py-3 sm:py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0">
-            <Image src="/Logo.svg" alt="Embark AI" width={112} height={28} priority className="h-7 sm:h-8 w-auto" />
-          </Link>
-          <div className="flex items-center gap-3 sm:gap-6">
-            <div className="hidden md:block">
-              <DownloadAppButton />
-            </div>
-            <Link
-              href="/courses"
-              className="text-[10px] sm:text-xs font-bold text-slate-600 hover:text-primary transition-colors uppercase tracking-wider font-mono"
-            >
-              Courses
-            </Link>
-            <Link
-              href="/community"
-              className="text-[10px] sm:text-xs font-bold text-primary transition-colors uppercase tracking-wider font-mono border-b-2 border-primary pb-0.5"
-            >
-              Community
-            </Link>
-            {currentUser ? (
-              <Link
-                href="/dashboard"
-                className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs hover:scale-[1.02] cursor-pointer shrink-0"
-              >
-                My Dashboard
-              </Link>
-            ) : (
-              <>
-                <Link
-                  href="/auth/login"
-                  className="text-[10px] sm:text-xs font-bold text-slate-600 hover:text-primary transition-colors uppercase tracking-wider font-mono"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="bg-primary hover:bg-primary-light text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 rounded-xl text-[10px] sm:text-xs transition-all duration-200 shadow-xs hover:scale-[1.02] cursor-pointer shrink-0"
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header user={currentUser} />
 
       {/* Main Container */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-12 relative z-10">

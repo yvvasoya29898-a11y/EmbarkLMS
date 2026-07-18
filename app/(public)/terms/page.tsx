@@ -1,14 +1,17 @@
 import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import Footer from '@/components/Footer'
+import { createClient } from '@/lib/supabase/server'
+import Header from '@/components/Header'
 
 export const metadata = {
   title: 'Terms of Service | Embark LMS',
   description: 'Terms of Service for Embark LMS users.',
 }
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
   return (
     <div className="min-h-screen bg-white text-slate-800 flex flex-col justify-between relative overflow-hidden font-body">
       {/* Brand-aligned ambient light glow */}
@@ -18,16 +21,7 @@ export default function TermsOfServicePage() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)] opacity-30 pointer-events-none" />
 
       {/* Header */}
-      <header className="border-b border-slate-100 bg-white/70 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <Image src="/Logo.svg" alt="Embark AI" width={112} height={28} priority className="h-7 sm:h-8 w-auto" />
-          </Link>
-          <Link href="/courses" className="text-xs font-bold text-primary uppercase tracking-wider font-mono">
-            Explore Courses
-          </Link>
-        </div>
-      </header>
+      <Header user={user} />
 
       {/* Main content container */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-6 py-12 relative z-10 space-y-8">
