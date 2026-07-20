@@ -18,7 +18,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       {
         src: '/Logo.png',
-        sizes: '642x642', // Original dimensions from public/Logo.png (642px x 642px)
+        sizes: '512x512', // Updated to match the new 512x512 hexagon Logo.png
         type: 'image/png',
         purpose: 'maskable'
       }

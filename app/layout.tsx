@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   description: "Embark LMS is an online learning platform for AI and technology courses.",
   icons: {
     icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    shortcut: "/favicon.ico",
+    apple: "/Logo.png",
   },
   openGraph: {
     title: "Embark LMS — Learn AI, Implementation-First",

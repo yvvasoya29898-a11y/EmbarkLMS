@@ -70,10 +70,13 @@ export default function LoginForm({ message, error, next = '' }: LoginFormProps)
 
         const btnElement = document.getElementById('google-signin-btn')
         if (btnElement) {
+          const containerWidth = btnElement.parentElement?.clientWidth || 384
+          const buttonWidth = Math.max(200, Math.min(400, containerWidth))
+
           google.accounts.id.renderButton(btnElement, {
             theme: 'outline',
             size: 'large',
-            width: '384',
+            width: String(buttonWidth),
             text: 'continue_with',
             shape: 'rectangular',
             logo_alignment: 'left'
